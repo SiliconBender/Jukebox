@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Jukebox (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Jukebox (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

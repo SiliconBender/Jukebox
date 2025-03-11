@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="Jukebox.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Jukebox"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+
+        <SolidColorBrush x:Name="TransparentBrush" Color="Transparent"/>
+        <SolidColorBrush x:Name="SelectedbackgroundBrush" Color="{ThemeResource SystemAccentColorLight2}"/>
+        <SolidColorBrush x:Key="ListViewItemBackgroundSelected" Color="Transparent" />
+
+        <!-- When using x:Bind, you need to set x:DataType -->
+        <DataTemplate x:Name="TrackListViewTemplate" x:DataType="local:Track">
+            <Grid >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="120"/>
+                </Grid.ColumnDefinitions>
+
+                <Image 
+                         Grid.RowSpan="2"
+                         Width ="32"
+                         Height="32"
+                         Margin="6"
+                         Source="{x:Bind ImageSource}" 
+                         VerticalAlignment="Center"
+                         HorizontalAlignment="Center"
+                         />
+
+                <TextBlock Grid.Column="1" Text="{x:Bind Name}" x:Phase="1" Style="{ThemeResource BaseTextBlockStyle}" Margin="12,6,0,0"/>
+                <TextBlock Grid.Column="1" Grid.Row="1" Text="{x:Bind Genre}" x:Phase="2" Style="{ThemeResource BodyTextBlockStyle}" Margin="12,0,0,6"/>
+                <FontIcon Grid.Column="2" x:Name="AudioFileCheckMark" Glyph="&#xE73E;" Grid.RowSpan="2" Visibility="{x:Bind AudioSelected, Mode=OneWay}" Foreground="{ThemeResource SystemAccentColorLight2}" HorizontalAlignment="Right"/>
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0" Height="600" Width="300" HorizontalAlignment="Left" BorderBrush="AliceBlue" BorderThickness="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="470"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Text="Audio File" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="20"/>
+
+            <ListView Loaded="AudioFileListView_Loaded"
+          x:Name="AudioFileListView"
+          Grid.Row="1" 
+          Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+          ItemsSource="{x:Bind _tracks}"
+          ItemTemplate="{StaticResource TrackListViewTemplate}"
+          SelectionMode="Single"
+          ShowsScrollingPlaceholders="True"
+          SelectionChanged="OnSelectionChanged">
+                <ListView.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.HeaderTemplate>
+                            <DataTemplate x:DataType="local:GroupInfoList">
+                                <TextBlock Text="{x:Bind Key}" Style="{ThemeResource TitleTextBlockStyle}"/>
+                            </DataTemplate>
+                        </GroupStyle.HeaderTemplate>
+                    </GroupStyle>
+                </ListView.GroupStyle>
+
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Background" Value="Transparent"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+
+            </ListView>
+
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0" Content="Add" Click="AddButton_Click" HorizontalAlignment="Center" Width="100"/>
+                <Button Grid.Column="1" Content="Delete" Click="DeleteButton_Click" HorizontalAlignment="Center" Width="100"/>
+                <Button Grid.Column="2" Content="Shuffle" Click="ShuffleButton_Click" HorizontalAlignment="Center" Width="100"/>
+            </Grid>
+
+        </Grid>
+
+
+        <Grid Grid.Column="1">
+
+            <MediaPlayerElement x:Name="mediaPlayerElement"
+                    Source="ms-appx:///Assets/Audio/Track5.wav"
+                    Width="400"
+                    AutoPlay="False"
+                    AreTransportControlsEnabled="True"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+
+        </Grid>
+
+
+    </Grid>
+
+    
+</Page>
