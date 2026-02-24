@@ -1,7 +1,6 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace Jukebox
+namespace Jukebox.JukeboxMVVM
 {
     public class GroupInfoList : List<object>
     {
