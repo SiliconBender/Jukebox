@@ -4,15 +4,14 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using Windows.Media.Core;
-using Windows.Media.Playback;
 
 namespace Jukebox.JukeboxMVVM
 {
-    internal class JukeboxViewModel
+    public sealed class JukeboxViewModel :  INotifyPropertyChanged
     {
         public ObservableCollection<TrackModel> _tracks = new ObservableCollection<TrackModel>();
 
-        private MediaPlayer _trackPlayer = new MediaPlayer();
+        private MediaPlayerElement _trackPlayer = new MediaPlayerElement();
 
         private int currItemIndex = 0;
 
@@ -31,7 +30,6 @@ namespace Jukebox.JukeboxMVVM
 
         void InitializeValues()
         {
-
             for (int i = 0; i < 10; i++)
             {
                 TrackModel track = new TrackModel();
@@ -40,7 +38,7 @@ namespace Jukebox.JukeboxMVVM
 
             this._tracks[currItemIndex].AudioSelected = true;
 
-        UpdateSelection();
+            UpdateSelection();
         }
 
         public void UpdateSelection(int newSelection = 0)
@@ -48,8 +46,8 @@ namespace Jukebox.JukeboxMVVM
             if(newSelection != -1)
             {
                 CurrItemIndex = newSelection;
-                _trackPlayer.Source = MediaSource.CreateFromUri(_tracks[CurrItemIndex].AudioFile);
-                _trackPlayer.Play();
+                _trackPlayer.Source = MediaSource.CreateFromUri(this._tracks[currItemIndex].AudioFile);
+                _trackPlayer.MediaPlayer.Play();
             }
         }
 

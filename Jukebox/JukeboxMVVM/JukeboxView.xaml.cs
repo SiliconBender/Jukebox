@@ -1,10 +1,6 @@
 using Jukebox.JukeboxMVVM;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using System;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using Windows.Media.Core;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -22,9 +18,7 @@ namespace Jukebox
         public JukeboxView()
         {
             this.InitializeComponent();
-
         }
-
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             viewModel.AddButton_Click();
@@ -37,12 +31,10 @@ namespace Jukebox
         {
             viewModel.ShuffleButton_Click();
         }
-
         private void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             viewModel.UpdateSelection(AudioFileListView.SelectedIndex);
         }
-
         private void AudioFileListView_Loaded(object sender, RoutedEventArgs e)
         {
             viewModel.AudioFileListView_Loaded();

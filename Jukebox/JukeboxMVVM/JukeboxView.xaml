@@ -51,8 +51,8 @@
             <ColumnDefinition />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        
-        
+
+
 
         <Grid Grid.Column="0" Height="600" Width="300" HorizontalAlignment="Left" BorderBrush="AliceBlue" BorderThickness="2">
             <Grid.ColumnDefinitions>
@@ -64,13 +64,13 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
 
-            
+
             <!--Title-->
-            
+
             <TextBlock Grid.Row="0" Text="Audio File" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="20"/>
 
             <!--Header-->
-            
+
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
@@ -94,7 +94,7 @@
 
 
             <!--Body-->
-            
+
             <ListView Loaded="AudioFileListView_Loaded"
           x:Name="AudioFileListView"
           Grid.Row="2" 
@@ -122,12 +122,11 @@
 
             </ListView>
 
-            
 
-        </Grid>
+
+            </Grid>
 
 
     </Grid>
 
-    
 </Page>
